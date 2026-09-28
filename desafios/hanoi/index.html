@@ -36,6 +36,12 @@
         <div class="counter" id="moves" aria-live="polite"></div>
       </div>
 
+      <div class="levels" role="group" aria-label="Nivel">
+        <button class="level" type="button" data-disks="3">3 discos</button>
+        <button class="level" type="button" data-disks="4">4 discos</button>
+        <button class="level" type="button" data-disks="5">5 discos</button>
+      </div>
+
       <div class="board" id="board" aria-label="Tablero de Torres de Hanoi">
         <button class="tower" type="button" data-tower="0"><span class="tower-name">Origen</span></button>
         <button class="tower" type="button" data-tower="1"><span class="tower-name">Auxiliar</span></button>
@@ -46,6 +52,7 @@
 
       <div class="actions">
         <button class="reset" type="button" id="reset">Reiniciar</button>
+        <button class="reset primary" type="button" id="next" hidden>Siguiente nivel →</button>
         <span class="tip" id="tip"></span>
       </div>
     </section>

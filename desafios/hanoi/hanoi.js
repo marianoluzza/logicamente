@@ -1,17 +1,34 @@
 (() => {
-  // Los estilos (.d1 … .d3) cubren hasta 3 discos.
-  const DISKS = 3;
-  const MIN_MOVES = 2 ** DISKS - 1;
+  // Cada nivel se identifica por la cantidad de discos. Los estilos (.d1 … .d5) cubren hasta 5.
+  const LEVELS = [3, 4, 5];
   const TOWER_NAMES = ['Origen', 'Auxiliar', 'Destino'];
-  // Un solo nivel, identificado por la cantidad de discos: el inicio lo lee para mostrar el avance.
   const STORAGE_KEY = 'logicamente:hanoi:resueltos';
 
   const towerButtons = [...document.querySelectorAll('.tower')];
   const feedback = document.querySelector('#feedback');
   const movesEl = document.querySelector('#moves');
   const tipEl = document.querySelector('#tip');
+  const nextButton = document.querySelector('#next');
+  const levelButtons = [...document.querySelectorAll('.level')];
+
+  // Niveles resueltos: comodidad por navegador, el juego funciona sin storage.
+  // Se guardan como texto, igual que antes de que hubiera niveles.
+  const solved = (() => {
+    try {
+      return new Set((JSON.parse(localStorage.getItem(STORAGE_KEY)) ?? []).map(String));
+    } catch {
+      return new Set();
+    }
+  })();
+  const saveSolved = () => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([...solved]));
+    } catch {}
+  };
 
   // Cada torre es una pila: el último elemento es el disco de arriba.
+  let disks;
+  let minMoves;
   let towers;
   let selected;
   let moves;
@@ -42,16 +59,30 @@
       });
     });
 
-    movesEl.textContent = `${moves} / ${MIN_MOVES}`;
+    movesEl.textContent = `${moves} / ${minMoves}`;
+    tipEl.textContent = `Mínimo posible: ${minMoves} movimientos`;
+    nextButton.hidden = !completed || disks === LEVELS[LEVELS.length - 1];
+    levelButtons.forEach(button => {
+      const level = Number(button.dataset.disks);
+      button.setAttribute('aria-pressed', String(level === disks));
+      button.classList.toggle('solved', solved.has(String(level)));
+    });
   };
 
   const reset = () => {
-    towers = [Array.from({ length: DISKS }, (_, i) => DISKS - i), [], []];
+    towers = [Array.from({ length: disks }, (_, i) => disks - i), [], []];
     selected = null;
     moves = 0;
     completed = false;
-    feedback.textContent = `Objetivo: llevar los ${DISKS} discos a la torre de destino.`;
+    feedback.textContent = `Objetivo: llevar los ${disks} discos a la torre de destino.`;
     render();
+  };
+
+  const setLevel = level => {
+    disks = level;
+    minMoves = 2 ** disks - 1;
+    document.querySelector('#board').style.setProperty('--disks', disks);
+    reset();
   };
 
   const selectTower = index => {
@@ -84,33 +115,41 @@
     selected = null;
     moves += 1;
 
-    if (towers[2].length === DISKS) {
+    if (towers[2].length === disks) {
       completed = true;
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify([String(DISKS)]));
-      } catch {}
-      feedback.textContent = moves === MIN_MOVES
+      solved.add(String(disks));
+      saveSolved();
+      feedback.textContent = moves === minMoves
         ? '¡Perfecto! Lo resolviste en el mínimo de movimientos.'
-        : `¡Resuelto en ${moves} movimientos! El mínimo era ${MIN_MOVES}.`;
+        : `¡Resuelto en ${moves} movimientos! El mínimo era ${minMoves}.`;
     } else {
       feedback.textContent = 'Bien. Seguí buscando el camino.';
     }
 
     render();
+    if (completed && !nextButton.hidden) nextButton.focus();
   };
 
   towerButtons.forEach(button => {
     button.addEventListener('click', () => selectTower(Number(button.dataset.tower)));
   });
+  levelButtons.forEach(button => {
+    button.addEventListener('click', () => setLevel(Number(button.dataset.disks)));
+  });
+
+  nextButton.addEventListener('click', () => {
+    setLevel(LEVELS[LEVELS.indexOf(disks) + 1]);
+    towerButtons[0].focus();
+  });
+
   document.querySelector('#reset').addEventListener('click', reset);
 
-  tipEl.textContent = `Mínimo posible: ${MIN_MOVES} movimientos`;
-  reset();
+  setLevel(LEVELS[0]);
 
   // WebMCP (experimental): expone el juego a agentes del navegador, si el navegador lo soporta.
   const context = document.modelContext;
   if (context?.registerTool) {
-    const state = () => ({ towers, moves, completed });
+    const state = () => ({ disks, towers, moves, completed });
     const noInput = { type: 'object', properties: {}, additionalProperties: false };
     const register = tool => {
       try {

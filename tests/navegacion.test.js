@@ -40,10 +40,11 @@ test('el inicio muestra el avance guardado de cada desafío', async () => {
   await page.evaluate(() => localStorage.clear());
   await page.reload();
   assert.deepEqual(await badges(), [
-    ['new', '1 nivel'], ['new', '3 niveles'], ['new', '2 niveles'], ['new', '3 niveles'], ['new', '3 niveles'], ['new', '3 niveles'],
+    ['new', '3 niveles'], ['new', '3 niveles'], ['new', '2 niveles'], ['new', '3 niveles'], ['new', '3 niveles'], ['new', '3 niveles'],
   ]);
 
   // Mismos formatos que guarda cada juego: números o ids, y datos de más o rotos se ignoran.
+  // Hanoi guardaba solo "3" cuando tenía un único nivel: ahora cuenta como 1 de 3.
   await page.evaluate(() => {
     localStorage.setItem('logicamente:hanoi:resueltos', '["3"]');
     localStorage.setItem('logicamente:reinas:resueltos', '[4, 8]');
@@ -53,11 +54,11 @@ test('el inicio muestra el avance guardado de cada desafío', async () => {
   });
   await page.reload();
   assert.deepEqual(await badges(), [
-    ['complete', '✓ Completo'], ['partial', '2 de 3 niveles'], ['complete', '✓ Completo'],
+    ['partial', '1 de 3 niveles'], ['partial', '2 de 3 niveles'], ['complete', '✓ Completo'],
     ['new', '3 niveles'], ['new', '3 niveles'], ['partial', '1 de 3 niveles'],
   ]);
-  assert.equal(await page.locator('#overall').textContent(), '2 de 6 completos');
-  assert.equal(await page.locator('.challenge.complete').count(), 2);
+  assert.equal(await page.locator('#overall').textContent(), '1 de 6 completos');
+  assert.equal(await page.locator('.challenge.complete').count(), 1);
   // El borde pasa a menta con una transición corta: se espera el color final.
   await page.waitForFunction(() =>
     getComputedStyle(document.querySelector('.challenge.complete')).borderTopColor === 'rgb(120, 224, 193)', null, { timeout: 2000 });

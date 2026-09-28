@@ -89,9 +89,16 @@
   transform: translateY(-7px);
 }
 
-.d1 { width: 36%; background: var(--sun); }
-.d2 { width: 53%; background: var(--coral); }
-.d3 { width: 70%; background: var(--mint); }
+/* Del más chico (28%) al más grande (88%) en pasos iguales, según los discos del nivel (--disks, lo pone el JS). */
+.disk {
+  width: calc(28% + (var(--rank) - 1) * 60% / (var(--disks) - 1));
+}
+
+.d1 { --rank: 1; background: var(--sun); }
+.d2 { --rank: 2; background: var(--coral); }
+.d3 { --rank: 3; background: var(--mint); }
+.d4 { --rank: 4; background: #8fb8ff; }
+.d5 { --rank: 5; background: #c9a2ff; }
 
 @media (min-width: 600px) {
   .board {

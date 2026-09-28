@@ -2,7 +2,7 @@
 (() => {
   // Ids de los niveles de cada desafío, tal como los guarda en logicamente:<desafío>:resueltos.
   const LEVELS = {
-    hanoi: ['3'],
+    hanoi: ['3', '4', '5'],
     reinas: ['4', '6', '8'],
     rio: ['granjero', 'ovejas'],
     jarras: ['3-5', '8-5-3', '4-9'],

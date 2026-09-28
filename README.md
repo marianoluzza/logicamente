@@ -14,7 +14,7 @@ El sitio puede publicarse en GitHub Pages y Vercel siguiendo las instrucciones d
 
 ### Disponibles
 
-- **Torres de Hanoi** — Mové los discos entre tres torres sin colocar uno grande sobre otro más chico. Incluye contador de movimientos, validación de reglas y reconocimiento de la solución óptima en 7 pasos.
+- **Torres de Hanoi** — Mové los discos entre tres torres sin colocar uno grande sobre otro más chico. Tres niveles (3, 4 y 5 discos) con contador de movimientos, validación de reglas y reconocimiento de la solución óptima (7, 15 y 31 pasos).
 - **Las ocho reinas** — Ubicá las reinas en el tablero sin que ninguna ataque a otra. Tres niveles (4×4, 6×6 y el clásico 8×8), con los conflictos marcados en vivo y los niveles resueltos guardados en el navegador.
 - **El cruce del río** — Llevá a todos a la otra orilla sin dejar juntos a los que no pueden quedarse solos. Dos niveles: el granjero con el lobo, la cabra y el repollo (7 viajes), y tres ovejas con tres lobos (11 viajes). Los errores se muestran y se pueden deshacer.
 - **Las jarras de agua** — Medí una cantidad exacta llenando, vaciando y pasando agua entre jarras de distinta capacidad. Tres niveles: 3 y 5 litros para medir 4 (6 movimientos), repartir 8 litros en dos mitades sin canilla (7) y 4 y 9 litros para medir 6 (8).

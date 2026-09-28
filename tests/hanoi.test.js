@@ -3,7 +3,7 @@
 
 import { test, before, after, describe } from 'node:test';
 import assert from 'node:assert/strict';
-import { useSite, siteUrl, openPage } from './helpers.js';
+import { useSite, siteUrl, openPage, hasNoHorizontalScroll } from './helpers.js';
 
 useSite();
 
@@ -22,6 +22,10 @@ describe('Torres de Hanoi', () => {
   };
 
   const OPTIMAL = [[0, 2], [0, 1], [2, 1], [0, 2], [1, 0], [1, 2], [0, 2]];
+  // Solución óptima para n discos: pasar n-1 a la auxiliar, el grande al destino y los n-1 encima.
+  const solve = (n, from = 0, to = 2, via = 1) =>
+    n ? [...solve(n - 1, from, via, to), [from, to], ...solve(n - 1, via, to, from)] : [];
+  const pressedLevel = () => page.locator('.level[aria-pressed="true"]').textContent();
 
   before(async () => {
     page = await openPage();
@@ -130,6 +134,79 @@ describe('Torres de Hanoi', () => {
     await page.keyboard.press('Space');
     assert.deepEqual(await diskCounts(), [2, 0, 1]);
   });
+
+  test('arranca en 3 discos y se puede cambiar de nivel', async () => {
+    await load();
+    assert.equal(await pressedLevel(), '3 discos');
+    assert.equal(await page.locator('.level').count(), 3);
+
+    await page.locator('.level', { hasText: '5 discos' }).tap();
+    assert.equal(await pressedLevel(), '5 discos');
+    assert.equal(await moves(), '0 / 31');
+    assert.equal(await page.locator('#tip').textContent(), 'Mínimo posible: 31 movimientos');
+    assert.equal(await feedback(), 'Objetivo: llevar los 5 discos a la torre de destino.');
+    assert.deepEqual(await diskCounts(), [5, 0, 0]);
+
+    // Reiniciar se queda en el nivel elegido.
+    await play([[0, 1]]);
+    await page.locator('#reset').tap();
+    assert.equal(await pressedLevel(), '5 discos');
+    assert.deepEqual(await diskCounts(), [5, 0, 0]);
+  });
+
+  test('al resolver un nivel se marca y se puede pasar al siguiente', async () => {
+    await load();
+    await page.evaluate(() => localStorage.clear());
+    await load();
+    assert.equal(await page.locator('#next').isHidden(), true);
+
+    await play(OPTIMAL);
+    assert.equal(await page.locator('.level.solved').count(), 1);
+    assert.equal(await page.locator('#next').isVisible(), true);
+    // El foco pasa al botón para seguir con el teclado.
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'next');
+
+    await page.locator('#next').tap();
+    assert.equal(await pressedLevel(), '4 discos');
+    assert.equal(await page.locator('#next').isHidden(), true);
+    await play(solve(4));
+    assert.equal(await moves(), '15 / 15');
+    assert.equal(await feedback(), '¡Perfecto! Lo resolviste en el mínimo de movimientos.');
+
+    await page.locator('#next').tap();
+    await play(solve(5));
+    assert.equal(await moves(), '31 / 31');
+    assert.deepEqual(await diskCounts(), [0, 0, 5]);
+    // Es el último nivel: no hay siguiente.
+    assert.equal(await page.locator('#next').isHidden(), true);
+    assert.equal(await page.locator('.level.solved').count(), 3);
+    assert.deepEqual(JSON.parse(await page.evaluate(() => localStorage.getItem('logicamente:hanoi:resueltos'))), ['3', '4', '5']);
+
+    // Al volver, los niveles resueltos siguen marcados.
+    await load();
+    assert.equal(await page.locator('.level.solved').count(), 3);
+  });
+
+  for (const width of [320, 360]) {
+    test(`5 discos entran en la torre en un celular de ${width}px`, async () => {
+      await page.setViewportSize({ width, height: 740 });
+      await load();
+      await page.locator('.level', { hasText: '5 discos' }).tap();
+
+      const { tower, disks } = await towers().nth(0).evaluate(el => ({
+        tower: el.getBoundingClientRect().toJSON(),
+        disks: [...el.querySelectorAll('.disk')].map(d => d.getBoundingClientRect().toJSON()),
+      }));
+      disks.forEach(d => assert.ok(d.left >= tower.left && d.right <= tower.right && d.top >= tower.top,
+        `disco fuera de la torre: ${JSON.stringify(d)}`));
+      // Cada disco, bien distinguible del de abajo.
+      const bottomToTop = [...disks].sort((a, b) => b.top - a.top);
+      bottomToTop.slice(1).forEach((d, i) => assert.ok(bottomToTop[i].width - d.width >= 8,
+        `anchos de abajo hacia arriba: ${bottomToTop.map(b => Math.round(b.width)).join(', ')}`));
+      assert.ok(await hasNoHorizontalScroll(page));
+      await page.setViewportSize({ width: 360, height: 740 });
+    });
+  }
 
   test('las torres anuncian cuántos discos tienen', async () => {
     await load();
