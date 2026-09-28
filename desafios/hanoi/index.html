@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1b1730" />
+  <meta name="description" content="Resolvé Torres de Hanoi en el menor número de movimientos." />
+  <title>Torres de Hanoi — Lógicamente</title>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../../assets/base.css" />
+  <link rel="stylesheet" href="hanoi.css" />
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <a class="brand" href="../../" aria-label="Volver a Lógicamente"><span class="brand-mark">L</span>Lógicamente</a>
+      <span class="progress">Desafío 01</span>
+    </header>
+
+    <section class="game" aria-labelledby="game-title">
+      <a class="back" href="../../">← Volver a desafíos</a>
+
+      <div class="game-top">
+        <div>
+          <div class="eyebrow">Desafío 01</div>
+          <h1 id="game-title">Torres de Hanoi</h1>
+          <p class="rules">Tocá una torre para elegir el disco superior y otra para moverlo. Un disco grande nunca puede quedar sobre uno más chico.</p>
+        </div>
+        <div class="moves" id="moves" aria-live="polite"></div>
+      </div>
+
+      <div class="board" id="board" aria-label="Tablero de Torres de Hanoi">
+        <button class="tower" type="button" data-tower="0"><span class="tower-name">Origen</span></button>
+        <button class="tower" type="button" data-tower="1"><span class="tower-name">Auxiliar</span></button>
+        <button class="tower" type="button" data-tower="2"><span class="tower-name">Destino</span></button>
+      </div>
+
+      <p class="feedback" id="feedback" aria-live="polite"></p>
+
+      <div class="actions">
+        <button class="reset" type="button" id="reset">Reiniciar</button>
+        <span class="tip" id="tip"></span>
+      </div>
+    </section>
+  </main>
+  <script src="hanoi.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "logicamente",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test \"tests/**/*.test.js\""
+  },
+  "devDependencies": {
+    "playwright-core": "^1.63.0"
+  }
+}

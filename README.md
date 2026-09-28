@@ -8,7 +8,7 @@ El proyecto nace como una forma de acercar el pensamiento computacional a travé
 
 ## Probarlo
 
-La versión publicada está disponible en [logicamente.mluzza.chatgpt.site](https://logicamente.mluzza.chatgpt.site).
+El sitio puede publicarse en GitHub Pages y Vercel siguiendo las instrucciones de la sección [Publicación](#publicación).
 
 ## Desafíos
 
@@ -34,17 +34,44 @@ El sitio está pensado primero para celular:
 ## Estructura
 
 ```text
-dist/
-├── index.html                 # Selector de desafíos
-├── assets/
-│   ├── css/base.css            # Identidad visual compartida
-│   ├── css/hanoi.css           # Estilos exclusivos de Hanoi
-│   └── js/hanoi.js             # Lógica del juego
-└── desafios/
-    └── hanoi/index.html        # Página de Torres de Hanoi
+index.html                  # Selector de desafíos
+assets/
+└── base.css                # Identidad visual compartida
+desafios/
+└── hanoi/
+    ├── index.html          # Página de Torres de Hanoi
+    ├── hanoi.css           # Estilos exclusivos de Hanoi
+    └── hanoi.js            # Lógica del juego
+vercel.json                 # Config de Vercel (URLs con barra final)
 ```
 
-Cada desafío nuevo puede sumar su página, estilos y lógica sin cargar código innecesario en el resto del sitio.
+Es un sitio estático sin paso de build: los archivos del repo son los que se publican.
+
+### Sumar un desafío
+
+1. Crear `desafios/<nombre>/` con su `index.html`, CSS y JS.
+2. Enlazar el estilo compartido con `../../assets/base.css`.
+3. Agregar la tarjeta en `index.html`.
+
+Usar siempre rutas relativas (nunca `/assets/...`) para que el sitio funcione tanto en la raíz de un dominio como en una subcarpeta de GitHub Pages.
+
+## Publicación
+
+- **GitHub Pages:** Settings → Pages → *Deploy from a branch* → `main` / `(root)`.
+- **Vercel:** importar el repo sin framework, sin build command y con output directory `.` (la raíz).
+- **Local:** servir la carpeta con cualquier servidor estático, por ejemplo `npx serve .`.
+
+## Pruebas
+
+Pruebas de punta a punta con [playwright-core](https://playwright.dev) y el runner nativo de Node, en un viewport de celular. Usan el Microsoft Edge instalado (no descargan navegadores):
+
+```sh
+npm install
+npm test                         # con Edge
+BROWSER_CHANNEL=chrome npm test  # con Chrome
+```
+
+Sirven el sitio en la raíz (como Vercel) y bajo `/logicamente/` (como GitHub Pages), y fallan ante cualquier error de consola o recurso con 404.
 
 ## Próximo paso
 
