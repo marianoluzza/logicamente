@@ -18,6 +18,7 @@ El sitio puede publicarse en GitHub Pages y Vercel siguiendo las instrucciones d
 - **Las ocho reinas** — Ubicá las reinas en el tablero sin que ninguna ataque a otra. Tres niveles (4×4, 6×6 y el clásico 8×8), con los conflictos marcados en vivo y los niveles resueltos guardados en el navegador.
 - **El cruce del río** — Llevá a todos a la otra orilla sin dejar juntos a los que no pueden quedarse solos. Dos niveles: el granjero con el lobo, la cabra y el repollo (7 viajes), y tres ovejas con tres lobos (11 viajes). Los errores se muestran y se pueden deshacer.
 - **Las jarras de agua** — Medí una cantidad exacta llenando, vaciando y pasando agua entre jarras de distinta capacidad. Tres niveles: 3 y 5 litros para medir 4 (6 movimientos), repartir 8 litros en dos mitades sin canilla (7) y 4 y 9 litros para medir 6 (8).
+- **Luces fuera** — Apagá todas las luces sabiendo que cada toque cambia también a sus vecinas. Tres niveles (3×3, 4×4 y 5×5) con tableros al azar que siempre tienen solución y un mínimo fijo de toques (4, 6 y 8). Reiniciar vuelve al mismo tablero, *Otro tablero* genera uno nuevo y, si cuesta, aparece una pista.
 
 ## Experiencia
 
@@ -40,6 +41,7 @@ desafios/
 ├── hanoi/                  # Torres de Hanoi: index.html, hanoi.css, hanoi.js
 ├── jarras/                 # Las jarras de agua: index.html, jarras.css, jarras.js
 │   └── iconos/             # Íconos SVG de llenar, vaciar y verter
+├── luces/                  # Luces fuera: index.html, luces.css, luces.js
 ├── reinas/                 # Las ocho reinas: index.html, reinas.css, reinas.js
 └── rio/                    # El cruce del río: index.html, rio.css, rio.js
     └── personajes/         # Ilustraciones SVG de cada personaje
@@ -57,6 +59,8 @@ Es un sitio estático sin paso de build: los archivos del repo son los que se pu
 2. Enlazar los estilos compartidos `../../assets/base.css` y `../../assets/game.css`.
 3. Agregar la tarjeta en `index.html` y el desafío en `CHALLENGES` de `tests/navegacion.test.js`.
 4. Sumar `tests/<nombre>.test.js` con sus pruebas.
+
+Si el desafío genera partidas al azar, que acepte `?semilla=N` en la URL para repetirlas: así se pueden compartir y probar de forma determinista (ver `desafios/luces/`).
 
 Usar siempre rutas relativas (nunca `/assets/...`) para que el sitio funcione tanto en la raíz de un dominio como en una subcarpeta de GitHub Pages.
 

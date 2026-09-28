@@ -13,6 +13,7 @@ const CHALLENGES = [
   { title: 'Las ocho reinas', path: 'desafios/reinas/', ready: '.cell', count: 16 },
   { title: 'El cruce del río', path: 'desafios/rio/', ready: '.character', count: 4 },
   { title: 'Las jarras de agua', path: 'desafios/jarras/', ready: '.jug', count: 2 },
+  { title: 'Luces fuera', path: 'desafios/luces/', ready: '.bulb', count: 9 },
 ];
 
 test('el inicio enlaza los desafíos disponibles', async () => {
