@@ -1,0 +1,105 @@
+/* Estilos exclusivos de Las ocho reinas. */
+
+.levels {
+  display: flex;
+  gap: 6px;
+  margin-top: 20px;
+}
+
+.level {
+  flex: 1;
+  min-height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  font-weight: 750;
+}
+
+.level[aria-pressed="true"] {
+  border-color: var(--sun);
+  color: var(--ink);
+  background: rgba(245, 200, 76, .08);
+}
+
+.level.solved::after {
+  content: " ✓";
+  color: var(--mint);
+}
+
+.level:focus-visible {
+  outline: 2px solid var(--sun);
+  outline-offset: 2px;
+}
+
+/* Tablero: --size lo define el JS según el nivel. */
+.chessboard {
+  container-type: inline-size;
+  display: grid;
+  grid-template-columns: repeat(var(--size), 1fr);
+  width: 100%;
+  max-width: 480px;
+  margin: 14px auto 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+
+.cell {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  color: var(--sun);
+  background: #2e294b;
+  cursor: pointer;
+  /* Toques rápidos: sin selección de texto, zoom por doble toque ni destello. */
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  font-size: calc(100cqw / var(--size) * .68);
+  line-height: 1;
+}
+
+.cell.light {
+  background: #403866;
+}
+
+.cell:focus-visible {
+  position: relative;
+  outline: 3px solid var(--mint);
+  outline-offset: -3px;
+}
+
+.cell.conflict {
+  color: var(--coral);
+  background: rgba(255, 143, 125, .16);
+  box-shadow: inset 0 0 0 2px var(--coral);
+}
+
+.chessboard.completed {
+  border-color: var(--mint);
+}
+
+.chessboard.completed .cell {
+  cursor: default;
+}
+
+.chessboard.completed .queen {
+  color: var(--mint);
+}
+
+.next {
+  border-color: var(--sun);
+  color: #241f3c;
+  background: var(--sun);
+}
+
+.next:hover,
+.next:focus-visible {
+  border-color: var(--ink);
+}

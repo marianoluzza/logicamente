@@ -1,70 +1,5 @@
 /* Estilos exclusivos de Torres de Hanoi. */
 
-.game {
-  padding: 18px;
-  border: 1px solid var(--line);
-  border-radius: 23px;
-  background: rgba(41, 35, 68, .92);
-  box-shadow: 0 22px 48px rgba(0, 0, 0, .18);
-}
-
-.back {
-  display: inline-flex;
-  align-items: center;
-  min-height: 40px;
-  margin: 0 0 18px;
-  color: var(--muted);
-  font-weight: 750;
-  text-decoration: none;
-}
-
-.back:hover,
-.back:focus-visible {
-  color: var(--sun);
-  outline: none;
-}
-
-.game-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.eyebrow {
-  margin-bottom: 5px;
-  color: var(--sun);
-  font-size: .75rem;
-  font-weight: 800;
-  letter-spacing: .09em;
-  text-transform: uppercase;
-}
-
-.game h1 {
-  margin-bottom: 4px;
-  font-size: 1.45rem;
-  letter-spacing: -.04em;
-}
-
-.rules {
-  margin-bottom: 0;
-  color: var(--muted);
-  font-size: .87rem;
-  line-height: 1.45;
-}
-
-.moves {
-  flex: 0 0 auto;
-  padding: 8px 10px;
-  border-radius: 10px;
-  background: var(--panel-2);
-  color: var(--sun);
-  font-size: .82rem;
-  font-weight: 800;
-}
-
-/* Tablero */
-
 .board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -86,6 +21,10 @@
   color: var(--ink);
   background: linear-gradient(to bottom, rgba(255, 255, 255, .025), rgba(255, 255, 255, 0));
   cursor: pointer;
+  /* Toques rápidos: sin selección de texto, zoom por doble toque ni destello. */
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition: border-color .15s, background .15s;
 }
 
@@ -154,50 +93,7 @@
 .d2 { width: 53%; background: var(--coral); }
 .d3 { width: 70%; background: var(--mint); }
 
-/* Estado y acciones */
-
-.feedback {
-  min-height: 24px;
-  margin: 10px 0 0;
-  color: var(--mint);
-  font-size: .87rem;
-  font-weight: 650;
-}
-
-.actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 13px;
-}
-
-.reset {
-  min-height: 44px;
-  padding: 0 15px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  color: var(--ink);
-  background: transparent;
-  cursor: pointer;
-  font-weight: 700;
-}
-
-.reset:hover,
-.reset:focus-visible {
-  border-color: var(--sun);
-  outline: none;
-}
-
-.tip {
-  align-self: center;
-  color: var(--muted);
-  font-size: .76rem;
-}
-
 @media (min-width: 600px) {
-  .game {
-    padding: 24px;
-  }
-
   .board {
     gap: 16px;
   }

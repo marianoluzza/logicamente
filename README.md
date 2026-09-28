@@ -12,13 +12,13 @@ El sitio puede publicarse en GitHub Pages y Vercel siguiendo las instrucciones d
 
 ## Desafíos
 
-### Disponible
+### Disponibles
 
 - **Torres de Hanoi** — Mové los discos entre tres torres sin colocar uno grande sobre otro más chico. Incluye contador de movimientos, validación de reglas y reconocimiento de la solución óptima en 7 pasos.
+- **Las ocho reinas** — Ubicá las reinas en el tablero sin que ninguna ataque a otra. Tres niveles (4×4, 6×6 y el clásico 8×8), con los conflictos marcados en vivo y los niveles resueltos guardados en el navegador.
 
 ### Próximamente
 
-- **Las nueve reinas** — Ubicá nueve reinas en el tablero sin que puedan atacarse.
 - **El cruce del río** — Encontrá una secuencia segura para llevar a todos a la otra orilla.
 - **Jarras de agua** — Medí una cantidad exacta usando recipientes de capacidades distintas.
 
@@ -36,12 +36,15 @@ El sitio está pensado primero para celular:
 ```text
 index.html                  # Selector de desafíos
 assets/
-└── base.css                # Identidad visual compartida
+├── base.css                # Identidad visual compartida
+├── game.css                # Estructura común de las páginas de desafío
+└── favicon.svg
 desafios/
-└── hanoi/
-    ├── index.html          # Página de Torres de Hanoi
-    ├── hanoi.css           # Estilos exclusivos de Hanoi
-    └── hanoi.js            # Lógica del juego
+├── hanoi/                  # Torres de Hanoi: index.html, hanoi.css, hanoi.js
+└── reinas/                 # Las ocho reinas: index.html, reinas.css, reinas.js
+tests/
+├── helpers.js              # Servidor estático y navegador para las pruebas
+└── *.test.js               # Una suite por desafío, más la navegación
 vercel.json                 # Config de Vercel (URLs con barra final)
 ```
 
@@ -50,8 +53,9 @@ Es un sitio estático sin paso de build: los archivos del repo son los que se pu
 ### Sumar un desafío
 
 1. Crear `desafios/<nombre>/` con su `index.html`, CSS y JS.
-2. Enlazar el estilo compartido con `../../assets/base.css`.
-3. Agregar la tarjeta en `index.html`.
+2. Enlazar los estilos compartidos `../../assets/base.css` y `../../assets/game.css`.
+3. Agregar la tarjeta en `index.html` y el desafío en `CHALLENGES` de `tests/navegacion.test.js`.
+4. Sumar `tests/<nombre>.test.js` con sus pruebas.
 
 Usar siempre rutas relativas (nunca `/assets/...`) para que el sitio funcione tanto en la raíz de un dominio como en una subcarpeta de GitHub Pages.
 
@@ -75,7 +79,7 @@ Sirven el sitio en la raíz (como Vercel) y bajo `/logicamente/` (como GitHub Pa
 
 ## Próximo paso
 
-Incorporar **Las nueve reinas** como segundo desafío completo, con un tablero táctil y una forma clara de mostrar cuándo una configuración es válida.
+Incorporar **El cruce del río** como tercer desafío: una secuencia de viajes en la que nunca pueden quedar solos en una orilla los personajes que entran en conflicto.
 
 ---
 

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1b1730" />
+  <meta name="description" content="Ubicá las reinas en el tablero sin que ninguna ataque a otra." />
+  <title>Las ocho reinas — Lógicamente</title>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../../assets/base.css" />
+  <link rel="stylesheet" href="../../assets/game.css" />
+  <link rel="stylesheet" href="reinas.css" />
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <a class="brand" href="../../" aria-label="Volver a Lógicamente"><span class="brand-mark">L</span>Lógicamente</a>
+      <span class="progress">Desafío 02</span>
+    </header>
+
+    <section class="game" aria-labelledby="game-title">
+      <a class="back" href="../../">← Volver a desafíos</a>
+
+      <div class="game-top">
+        <div>
+          <div class="eyebrow">Desafío 02</div>
+          <h1 id="game-title">Las ocho reinas</h1>
+          <p class="rules">Tocá una casilla para poner o sacar una reina. Ninguna puede compartir fila, columna ni diagonal con otra.</p>
+        </div>
+        <div class="counter" id="count" aria-live="polite"></div>
+      </div>
+
+      <div class="levels" role="group" aria-label="Nivel">
+        <button class="level" type="button" data-size="4">4×4</button>
+        <button class="level" type="button" data-size="6">6×6</button>
+        <button class="level" type="button" data-size="8">8×8</button>
+      </div>
+
+      <div class="chessboard" id="board" aria-label="Tablero"></div>
+
+      <p class="feedback" id="feedback" aria-live="polite"></p>
+
+      <div class="actions">
+        <button class="reset" type="button" id="reset">Reiniciar</button>
+        <button class="reset next" type="button" id="next" hidden>Siguiente nivel →</button>
+        <span class="tip">Pista: va una reina por fila.</span>
+      </div>
+    </section>
+  </main>
+  <script src="reinas.js"></script>
+</body>
+</html>
