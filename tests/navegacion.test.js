@@ -22,11 +22,46 @@ test('el inicio enlaza los desafíos disponibles', async () => {
   await page.goto(siteUrl());
 
   assert.equal(await page.title(), 'Lógicamente — Desafíos de lógica');
-  assert.equal(await page.locator('.progress').textContent(), `${CHALLENGES.length} desafíos disponibles`);
+  assert.equal(await page.locator('#overall').textContent(), `${CHALLENGES.length} desafíos`);
   assert.deepEqual(await page.locator('a.challenge h3').allTextContents(), CHALLENGES.map(c => c.title));
   // El CSS compartido cargó si la marca tiene el fondo amarillo.
   assert.equal(await page.locator('.brand-mark').evaluate(el => getComputedStyle(el).backgroundColor), 'rgb(245, 200, 76)');
   assert.ok(await hasNoHorizontalScroll(page), 'el inicio no debe tener scroll horizontal');
+
+  assert.deepEqual(page.problems, []);
+  await page.context().close();
+});
+
+test('el inicio muestra el avance guardado de cada desafío', async () => {
+  const page = await openPage();
+  await page.goto(siteUrl());
+  const badges = () => page.locator('.challenge .badge').evaluateAll(els => els.map(el => [el.dataset.state, el.textContent]));
+
+  await page.evaluate(() => localStorage.clear());
+  await page.reload();
+  assert.deepEqual(await badges(), [
+    ['new', '1 nivel'], ['new', '3 niveles'], ['new', '2 niveles'], ['new', '3 niveles'], ['new', '3 niveles'], ['new', '3 niveles'],
+  ]);
+
+  // Mismos formatos que guarda cada juego: números o ids, y datos de más o rotos se ignoran.
+  await page.evaluate(() => {
+    localStorage.setItem('logicamente:hanoi:resueltos', '["3"]');
+    localStorage.setItem('logicamente:reinas:resueltos', '[4, 8]');
+    localStorage.setItem('logicamente:rio:resueltos', '["granjero", "ovejas", "viejo"]');
+    localStorage.setItem('logicamente:luces:resueltos', 'no es json');
+    localStorage.setItem('logicamente:clave:resueltos', '["clasico"]');
+  });
+  await page.reload();
+  assert.deepEqual(await badges(), [
+    ['complete', '✓ Completo'], ['partial', '2 de 3 niveles'], ['complete', '✓ Completo'],
+    ['new', '3 niveles'], ['new', '3 niveles'], ['partial', '1 de 3 niveles'],
+  ]);
+  assert.equal(await page.locator('#overall').textContent(), '2 de 6 completos');
+  assert.equal(await page.locator('.challenge.complete').count(), 2);
+  // El borde pasa a menta con una transición corta: se espera el color final.
+  await page.waitForFunction(() =>
+    getComputedStyle(document.querySelector('.challenge.complete')).borderTopColor === 'rgb(120, 224, 193)', null, { timeout: 2000 });
+  assert.equal(await page.locator('.challenge').nth(1).locator('.dots .on').count(), 2);
 
   assert.deepEqual(page.problems, []);
   await page.context().close();

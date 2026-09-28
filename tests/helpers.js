@@ -67,3 +67,12 @@ export const openPage = async () => {
 };
 
 export const hasNoHorizontalScroll = page => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth);
+
+// La librería de QR del diálogo de compartir se sirve desde node_modules: mismo archivo que el CDN
+// (coincide el hash de integridad), sin depender de la red.
+export const QR_LIBRARY_URL = 'https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js';
+export const mockQrLibrary = page => page.route(QR_LIBRARY_URL, route => route.fulfill({
+  path: join(ROOT, 'node_modules/qrcode-generator/qrcode.js'),
+  contentType: 'text/javascript',
+  headers: { 'Access-Control-Allow-Origin': '*' },
+}));

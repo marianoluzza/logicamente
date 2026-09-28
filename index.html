@@ -13,7 +13,13 @@
   <main class="shell">
     <header>
       <div class="brand"><span class="brand-mark">L</span>Lógicamente</div>
-      <span class="progress">6 desafíos disponibles</span>
+      <div class="header-actions">
+        <span class="progress" id="overall">6 desafíos</span>
+        <button class="share-button" type="button" data-share-open aria-label="Compartir con código QR">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 14h3v3h-3zM18 18h3v3h-3zM14 19h2v2h-2zM19 14h2v2h-2z" fill="currentColor"/></svg>
+          <span>Compartir</span>
+        </button>
+      </div>
     </header>
 
     <section aria-labelledby="main-title">
@@ -24,53 +30,60 @@
     <section aria-labelledby="selector-title">
       <div class="section-title">
         <h2 id="selector-title">Elegí un desafío</h2>
-        <span>Más juegos, pronto</span>
       </div>
 
       <div class="challenge-grid">
-        <a class="challenge selected" href="desafios/hanoi/">
+        <a class="challenge selected" href="desafios/hanoi/" data-challenge="hanoi">
           <h3>Torres de Hanoi</h3>
           <p>Mové la torre respetando el orden de los discos.</p>
-          <span class="badge">Disponible ahora</span>
+          <span class="badge">1 nivel</span>
           <span class="glyph" aria-hidden="true">≡</span>
         </a>
 
-        <a class="challenge selected" href="desafios/reinas/">
+        <a class="challenge selected" href="desafios/reinas/" data-challenge="reinas">
           <h3>Las ocho reinas</h3>
           <p>Ubicá las reinas sin que se ataquen entre sí.</p>
-          <span class="badge">Disponible ahora</span>
+          <span class="badge">3 niveles</span>
           <span class="glyph" aria-hidden="true">♛</span>
         </a>
 
-        <a class="challenge selected" href="desafios/rio/">
+        <a class="challenge selected" href="desafios/rio/" data-challenge="rio">
           <h3>El cruce del río</h3>
           <p>Llevá a todos al otro lado, sin dejar conflictos.</p>
-          <span class="badge">Disponible ahora</span>
+          <span class="badge">2 niveles</span>
           <span class="glyph" aria-hidden="true">↝</span>
         </a>
 
-        <a class="challenge selected" href="desafios/jarras/">
+        <a class="challenge selected" href="desafios/jarras/" data-challenge="jarras">
           <h3>Las jarras de agua</h3>
           <p>Medí litros exactos llenando, vaciando y trasvasando.</p>
-          <span class="badge">Disponible ahora</span>
+          <span class="badge">3 niveles</span>
           <span class="glyph" aria-hidden="true">⊔</span>
         </a>
 
-        <a class="challenge selected" href="desafios/luces/">
+        <a class="challenge selected" href="desafios/luces/" data-challenge="luces">
           <h3>Luces fuera</h3>
           <p>Apagá todas las luces: cada toque cambia también a sus vecinas.</p>
-          <span class="badge">Disponible ahora</span>
+          <span class="badge">3 niveles</span>
           <span class="glyph" aria-hidden="true">☼</span>
         </a>
 
-        <a class="challenge selected" href="desafios/clave/">
+        <a class="challenge selected" href="desafios/clave/" data-challenge="clave">
           <h3>Clave secreta</h3>
           <p>Descubrí la combinación de figuras deduciendo con cada pista.</p>
-          <span class="badge">Disponible ahora</span>
+          <span class="badge">3 niveles</span>
           <span class="glyph" aria-hidden="true">◈</span>
         </a>
       </div>
     </section>
+
+    <section class="opinion-panel" aria-labelledby="opinion-title">
+      <h2 class="panel-eyebrow" id="opinion-title">Buzón de opiniones</h2>
+      <div data-opinion="portada" data-opinion-question="¿Qué te pareció Lógicamente?"></div>
+    </section>
   </main>
+  <script src="assets/progreso.js"></script>
+  <script src="assets/compartir.js"></script>
+  <script src="assets/opiniones.js"></script>
 </body>
 </html>

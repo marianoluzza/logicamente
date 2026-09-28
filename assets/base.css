@@ -174,11 +174,44 @@ a.challenge:focus-visible {
 }
 
 .badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   margin-top: 10px;
-  color: var(--mint);
+  color: var(--muted);
   font-size: .72rem;
   font-weight: 700;
+}
+
+/* Avance: un punto por nivel. Lo completa assets/progreso.js. */
+.badge[data-state="partial"] {
+  color: var(--sun);
+}
+
+.badge[data-state="complete"] {
+  color: var(--mint);
+}
+
+.dots {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.dots span {
+  width: 7px;
+  height: 7px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  opacity: .7;
+}
+
+.dots .on {
+  background: currentColor;
+  opacity: 1;
+}
+
+.challenge.selected.complete {
+  border-color: var(--mint);
 }
 
 .glyph {
@@ -189,6 +222,362 @@ a.challenge:focus-visible {
   font-size: 3.4rem;
   line-height: 1;
   opacity: .9;
+}
+
+/* Encabezado: etiqueta y botón de compartir */
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.share-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink);
+  background: var(--panel);
+  cursor: pointer;
+  font-size: .8rem;
+  font-weight: 800;
+}
+
+.share-button svg {
+  width: 18px;
+  height: 18px;
+  color: var(--sun);
+}
+
+.share-button:hover,
+.share-button:focus-visible {
+  border-color: var(--sun);
+  outline: none;
+}
+
+/* En el celular, solo el ícono. */
+@media (max-width: 479px) {
+  .share-button {
+    padding: 0;
+  }
+
+  .share-button span {
+    display: none;
+  }
+}
+
+/* Botones redondeados del diálogo y del buzón */
+
+.pill-button {
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink);
+  background: transparent;
+  cursor: pointer;
+  font-weight: 750;
+}
+
+.pill-button:hover,
+.pill-button:focus-visible {
+  border-color: var(--sun);
+  outline: none;
+}
+
+.pill-button.primary {
+  border-color: var(--sun);
+  color: #241f3c;
+  background: var(--sun);
+}
+
+.pill-button.primary:hover,
+.pill-button.primary:focus-visible {
+  border-color: var(--ink);
+}
+
+.pill-button:disabled {
+  opacity: .5;
+  cursor: default;
+}
+
+/* Diálogo de compartir */
+
+.share-dialog {
+  width: min(100% - 32px, 400px);
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 23px;
+  color: var(--ink);
+  background: var(--panel);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .45);
+}
+
+.share-dialog::backdrop {
+  background: rgba(12, 10, 24, .75);
+  backdrop-filter: blur(4px);
+}
+
+.share-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+}
+
+.share-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.share-header h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  letter-spacing: -.03em;
+}
+
+.share-close {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink);
+  background: var(--panel-2);
+  cursor: pointer;
+}
+
+.share-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel-2);
+}
+
+.share-toggle[hidden] {
+  display: none;
+}
+
+.share-toggle button {
+  min-height: 40px;
+  border: 0;
+  border-radius: 999px;
+  color: var(--muted);
+  background: none;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.share-toggle button[aria-pressed="true"] {
+  color: #241f3c;
+  background: var(--sun);
+}
+
+.share-qr {
+  display: grid;
+  place-items: center;
+  width: min(100%, 300px);
+  aspect-ratio: 1;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 14px;
+  color: #241f3c;
+  background: #fff;
+  font-weight: 700;
+  text-align: center;
+}
+
+.share-qr svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.share-qr.error {
+  padding: 20px;
+  border: 1px dashed var(--line);
+  color: var(--muted);
+  background: var(--panel-2);
+}
+
+.share-url {
+  margin: 0;
+  font-weight: 800;
+  text-align: center;
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+
+.share-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.share-actions .pill-button {
+  flex: 1 1 140px;
+}
+
+.share-actions [hidden] {
+  display: none;
+}
+
+.share-status {
+  min-height: 1.4em;
+  margin: 0;
+  color: var(--mint);
+  font-size: .85rem;
+  text-align: center;
+}
+
+/* Buzón de opiniones */
+
+.opinion-panel {
+  margin-top: 16px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 23px;
+  background: var(--panel);
+}
+
+.panel-eyebrow {
+  margin: 0 0 8px;
+  color: var(--sun);
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.opinion {
+  display: grid;
+  gap: 12px;
+}
+
+.opinion-reactions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.opinion-question {
+  margin-bottom: 10px;
+  padding: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+
+.opinion-reaction {
+  position: relative;
+}
+
+.opinion-reaction input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.opinion-reaction > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 750;
+}
+
+.opinion-reaction input:checked + span {
+  border-color: var(--sun);
+  background: rgba(245, 200, 76, .1);
+  box-shadow: inset 0 0 0 1px var(--sun);
+}
+
+.opinion-reaction input:focus-visible + span {
+  outline: 2px solid var(--mint);
+  outline-offset: 2px;
+}
+
+.opinion-label {
+  font-size: .87rem;
+  font-weight: 700;
+}
+
+.opinion-label span {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.opinion textarea {
+  width: 100%;
+  min-height: 84px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--ink);
+  background: rgba(0, 0, 0, .14);
+  font: inherit;
+  font-size: 1rem; /* 16px o más: iOS no hace zoom al escribir. */
+  resize: vertical;
+}
+
+.opinion textarea::placeholder {
+  color: var(--muted);
+}
+
+.opinion textarea:focus-visible {
+  border-color: var(--sun);
+  outline: none;
+}
+
+.opinion-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.opinion-status,
+.opinion-thanks {
+  margin: 0;
+  font-weight: 700;
+}
+
+.opinion-status {
+  color: var(--muted);
+  font-size: .85rem;
+}
+
+.opinion-status a {
+  color: var(--sun);
+}
+
+.opinion-thanks {
+  color: var(--mint);
+}
+
+.opinion-thanks:focus {
+  outline: none;
 }
 
 @media (min-width: 600px) {

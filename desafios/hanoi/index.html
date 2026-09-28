@@ -15,7 +15,13 @@
   <main class="shell">
     <header>
       <a class="brand" href="../../" aria-label="Volver a Lógicamente"><span class="brand-mark">L</span>Lógicamente</a>
-      <span class="progress">Desafío 01</span>
+      <div class="header-actions">
+        <span class="progress">Desafío 01</span>
+        <button class="share-button" type="button" data-share-open aria-label="Compartir con código QR">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 14h3v3h-3zM18 18h3v3h-3zM14 19h2v2h-2zM19 14h2v2h-2z" fill="currentColor"/></svg>
+          <span>Compartir</span>
+        </button>
+      </div>
     </header>
 
     <section class="game" aria-labelledby="game-title">
@@ -43,7 +49,14 @@
         <span class="tip" id="tip"></span>
       </div>
     </section>
+
+    <section class="opinion-panel" aria-labelledby="opinion-title">
+      <h2 class="panel-eyebrow" id="opinion-title">Buzón de opiniones</h2>
+      <div data-opinion="hanoi"></div>
+    </section>
   </main>
+  <script src="../../assets/compartir.js"></script>
+  <script src="../../assets/opiniones.js"></script>
   <script src="hanoi.js"></script>
 </body>
 </html>

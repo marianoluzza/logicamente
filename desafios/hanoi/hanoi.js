@@ -3,6 +3,8 @@
   const DISKS = 3;
   const MIN_MOVES = 2 ** DISKS - 1;
   const TOWER_NAMES = ['Origen', 'Auxiliar', 'Destino'];
+  // Un solo nivel, identificado por la cantidad de discos: el inicio lo lee para mostrar el avance.
+  const STORAGE_KEY = 'logicamente:hanoi:resueltos';
 
   const towerButtons = [...document.querySelectorAll('.tower')];
   const feedback = document.querySelector('#feedback');
@@ -84,6 +86,9 @@
 
     if (towers[2].length === DISKS) {
       completed = true;
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify([String(DISKS)]));
+      } catch {}
       feedback.textContent = moves === MIN_MOVES
         ? '¡Perfecto! Lo resolviste en el mínimo de movimientos.'
         : `¡Resuelto en ${moves} movimientos! El mínimo era ${MIN_MOVES}.`;

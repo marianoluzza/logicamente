@@ -101,6 +101,9 @@ describe('Torres de Hanoi', () => {
     // Una vez resuelto, el tablero ya no responde.
     await tap(2);
     assert.equal(await page.locator('.tower.active').count(), 0);
+
+    // Queda guardado para mostrar el avance en el inicio.
+    assert.equal(await page.evaluate(() => localStorage.getItem('logicamente:hanoi:resueltos')), '["3"]');
   });
 
   test('resolución con movimientos de más', async () => {
