@@ -30,6 +30,11 @@ a {
   font: inherit;
 }
 
+/* Cada botón tiene sus propios estados; el destello gris/azul del toque sobra. */
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
 a {
   color: inherit;
 }

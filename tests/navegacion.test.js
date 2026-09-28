@@ -11,6 +11,7 @@ useSite();
 const CHALLENGES = [
   { title: 'Torres de Hanoi', path: 'desafios/hanoi/', ready: '.disk', count: 3 },
   { title: 'Las ocho reinas', path: 'desafios/reinas/', ready: '.cell', count: 16 },
+  { title: 'El cruce del río', path: 'desafios/rio/', ready: '.character', count: 4 },
 ];
 
 test('el inicio enlaza los desafíos disponibles', async () => {

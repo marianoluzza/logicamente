@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1b1730" />
+  <meta name="description" content="Llevá a todos a la otra orilla sin dejar juntos a los que no pueden quedarse solos." />
+  <title>El cruce del río — Lógicamente</title>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../../assets/base.css" />
+  <link rel="stylesheet" href="../../assets/game.css" />
+  <link rel="stylesheet" href="rio.css" />
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <a class="brand" href="../../" aria-label="Volver a Lógicamente"><span class="brand-mark">L</span>Lógicamente</a>
+      <span class="progress">Desafío 03</span>
+    </header>
+
+    <section class="game" aria-labelledby="game-title">
+      <a class="back" href="../../">← Volver a desafíos</a>
+
+      <div class="game-top">
+        <div>
+          <div class="eyebrow">Desafío 03</div>
+          <h1 id="game-title">El cruce del río</h1>
+          <p class="rules" id="rules"></p>
+        </div>
+        <div class="counter" id="count" aria-live="polite"></div>
+      </div>
+
+      <div class="levels" role="group" aria-label="Nivel">
+        <button class="level" type="button" data-level="0">Granjero</button>
+        <button class="level" type="button" data-level="1">Ovejas y lobos</button>
+      </div>
+
+      <div class="scene">
+        <div class="bank" id="bank-0">
+          <span class="bank-name">Orilla de partida</span>
+          <div class="slots"></div>
+        </div>
+
+        <div class="river">
+          <div class="boat" id="boat"><div class="slots"></div></div>
+          <button class="reset primary cross" type="button" id="cross"></button>
+        </div>
+
+        <div class="bank" id="bank-1">
+          <span class="bank-name">Orilla de llegada</span>
+          <div class="slots"></div>
+        </div>
+      </div>
+
+      <p class="feedback" id="feedback" aria-live="polite"></p>
+
+      <div class="actions">
+        <button class="reset" type="button" id="undo">Deshacer</button>
+        <button class="reset" type="button" id="reset">Reiniciar</button>
+        <button class="reset primary" type="button" id="next" hidden>Siguiente nivel →</button>
+        <span class="tip" id="tip"></span>
+      </div>
+    </section>
+  </main>
+  <script src="rio.js"></script>
+</body>
+</html>

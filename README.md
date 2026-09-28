@@ -16,10 +16,10 @@ El sitio puede publicarse en GitHub Pages y Vercel siguiendo las instrucciones d
 
 - **Torres de Hanoi** — Mové los discos entre tres torres sin colocar uno grande sobre otro más chico. Incluye contador de movimientos, validación de reglas y reconocimiento de la solución óptima en 7 pasos.
 - **Las ocho reinas** — Ubicá las reinas en el tablero sin que ninguna ataque a otra. Tres niveles (4×4, 6×6 y el clásico 8×8), con los conflictos marcados en vivo y los niveles resueltos guardados en el navegador.
+- **El cruce del río** — Llevá a todos a la otra orilla sin dejar juntos a los que no pueden quedarse solos. Dos niveles: el granjero con el lobo, la cabra y el repollo (7 viajes), y tres ovejas con tres lobos (11 viajes). Los errores se muestran y se pueden deshacer.
 
 ### Próximamente
 
-- **El cruce del río** — Encontrá una secuencia segura para llevar a todos a la otra orilla.
 - **Jarras de agua** — Medí una cantidad exacta usando recipientes de capacidades distintas.
 
 ## Experiencia
@@ -41,7 +41,9 @@ assets/
 └── favicon.svg
 desafios/
 ├── hanoi/                  # Torres de Hanoi: index.html, hanoi.css, hanoi.js
-└── reinas/                 # Las ocho reinas: index.html, reinas.css, reinas.js
+├── reinas/                 # Las ocho reinas: index.html, reinas.css, reinas.js
+└── rio/                    # El cruce del río: index.html, rio.css, rio.js
+    └── personajes/         # Ilustraciones SVG de cada personaje
 tests/
 ├── helpers.js              # Servidor estático y navegador para las pruebas
 └── *.test.js               # Una suite por desafío, más la navegación
@@ -79,7 +81,7 @@ Sirven el sitio en la raíz (como Vercel) y bajo `/logicamente/` (como GitHub Pa
 
 ## Próximo paso
 
-Incorporar **El cruce del río** como tercer desafío: una secuencia de viajes en la que nunca pueden quedar solos en una orilla los personajes que entran en conflicto.
+Incorporar **Jarras de agua** como cuarto desafío: llenar, vaciar y trasvasar entre recipientes de distinta capacidad hasta medir una cantidad exacta.
 
 ---
 

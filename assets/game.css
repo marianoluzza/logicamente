@@ -63,6 +63,41 @@
   font-weight: 800;
 }
 
+/* Selector de niveles */
+
+.levels {
+  display: flex;
+  gap: 6px;
+  margin-top: 20px;
+}
+
+.level {
+  flex: 1;
+  min-height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  font-weight: 750;
+}
+
+.level[aria-pressed="true"] {
+  border-color: var(--sun);
+  color: var(--ink);
+  background: rgba(245, 200, 76, .08);
+}
+
+.level.solved::after {
+  content: " ✓";
+  color: var(--mint);
+}
+
+.level:focus-visible {
+  outline: 2px solid var(--sun);
+  outline-offset: 2px;
+}
+
 /* Estado y acciones */
 
 .feedback {
@@ -95,6 +130,26 @@
 .reset:focus-visible {
   border-color: var(--sun);
   outline: none;
+}
+
+.reset:disabled {
+  border-color: var(--line);
+  color: var(--muted);
+  background: transparent;
+  opacity: .5;
+  cursor: default;
+}
+
+/* Acción principal: "Siguiente nivel", "Deshacer" tras un error, etc. */
+.primary {
+  border-color: var(--sun);
+  color: #241f3c;
+  background: var(--sun);
+}
+
+.primary:hover,
+.primary:focus-visible {
+  border-color: var(--ink);
 }
 
 .tip {

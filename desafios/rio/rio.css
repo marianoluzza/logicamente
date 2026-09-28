@@ -1,0 +1,158 @@
+/* Estilos exclusivos de El cruce del río. */
+
+.scene {
+  display: grid;
+  gap: 0;
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Orillas */
+
+.bank {
+  position: relative;
+  padding: 24px 6px 8px;
+  background: #283d3a;
+  transition: box-shadow .2s;
+}
+
+.bank-name {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  color: var(--muted);
+  font-size: .72rem;
+  font-weight: 700;
+}
+
+/* La orilla donde está el bote es desde donde se puede subir. */
+.bank.boat-here {
+  box-shadow: inset 0 0 0 2px rgba(245, 200, 76, .45);
+}
+
+.bank .slots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px;
+  min-height: 44px;
+}
+
+/* Río y bote */
+
+.river {
+  position: relative;
+  height: 128px;
+  background:
+    repeating-linear-gradient(170deg, rgba(255, 255, 255, .035) 0 2px, transparent 2px 18px),
+    linear-gradient(#1f3a5c, #274872);
+}
+
+.boat {
+  position: absolute;
+  top: 8px;
+  left: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 112px;
+  min-height: 56px;
+  padding: 6px 10px;
+  border-radius: 8px 8px 28px 28px;
+  background: #8d6e63;
+  box-shadow: inset 0 -5px rgba(0, 0, 0, .18), 0 4px 10px rgba(0, 0, 0, .25);
+  transition: top .45s ease-in-out;
+}
+
+.boat.at-arrival {
+  top: calc(100% - 64px);
+}
+
+.boat .slots {
+  display: flex;
+  gap: 2px;
+}
+
+.cross {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+}
+
+/* Sobre el agua, el deshabilitado general queda poco visible: le damos fondo propio. */
+.cross:disabled {
+  background: rgba(27, 23, 48, .55);
+  opacity: 1;
+}
+
+/* Personajes */
+
+.character {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  /* Toques rápidos: sin selección, zoom por doble toque ni destello. */
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.character img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.character:focus-visible {
+  outline: 3px solid var(--sun);
+  outline-offset: 2px;
+}
+
+.character.culprit {
+  box-shadow: 0 0 0 3px var(--coral);
+  animation: shake .4s ease-in-out 2;
+}
+
+@keyframes shake {
+  25% { transform: translateX(-3px) rotate(-6deg); }
+  75% { transform: translateX(3px) rotate(6deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .character.culprit {
+    animation: none;
+  }
+}
+
+@media (min-width: 600px) {
+  .character {
+    width: 52px;
+    height: 52px;
+  }
+
+  .bank .slots {
+    gap: 8px;
+    min-height: 52px;
+  }
+
+  .boat {
+    min-width: 132px;
+    min-height: 64px;
+  }
+
+  .river {
+    height: 150px;
+  }
+
+  .boat.at-arrival {
+    top: calc(100% - 72px);
+  }
+}
