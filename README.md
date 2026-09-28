@@ -19,6 +19,7 @@ El sitio puede publicarse en GitHub Pages y Vercel siguiendo las instrucciones d
 - **El cruce del río** — Llevá a todos a la otra orilla sin dejar juntos a los que no pueden quedarse solos. Dos niveles: el granjero con el lobo, la cabra y el repollo (7 viajes), y tres ovejas con tres lobos (11 viajes). Los errores se muestran y se pueden deshacer.
 - **Las jarras de agua** — Medí una cantidad exacta llenando, vaciando y pasando agua entre jarras de distinta capacidad. Tres niveles: 3 y 5 litros para medir 4 (6 movimientos), repartir 8 litros en dos mitades sin canilla (7) y 4 y 9 litros para medir 6 (8).
 - **Luces fuera** — Apagá todas las luces sabiendo que cada toque cambia también a sus vecinas. Tres niveles (3×3, 4×4 y 5×5) con tableros al azar que siempre tienen solución y un mínimo fijo de toques (4, 6 y 8). Reiniciar vuelve al mismo tablero, *Otro tablero* genera uno nuevo y, si cuesta, aparece una pista.
+- **Clave secreta** — Descubrí una combinación oculta de figuras (la versión de Mastermind). Cada intento dice cuántas figuras están en su lugar y cuántas están pero en otro lugar, sin decir cuáles. Tres niveles: 3 figuras distintas de 4 (6 intentos), 4 distintas de 6 (8) y el clásico con repetidas (10). Avisa cuando un intento ya estaba descartado por las pistas anteriores. Las figuras se distinguen por la forma, no solo por el color.
 
 ## Experiencia
 
@@ -38,6 +39,7 @@ assets/
 ├── game.css                # Estructura común de las páginas de desafío
 └── favicon.svg
 desafios/
+├── clave/                  # Clave secreta: index.html, clave.css, clave.js
 ├── hanoi/                  # Torres de Hanoi: index.html, hanoi.css, hanoi.js
 ├── jarras/                 # Las jarras de agua: index.html, jarras.css, jarras.js
 │   └── iconos/             # Íconos SVG de llenar, vaciar y verter

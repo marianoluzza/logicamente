@@ -1,0 +1,244 @@
+/* Estilos exclusivos de Clave secreta. */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Figuras: la forma las distingue, el color acompaña. */
+.symbol {
+  display: block;
+  fill: currentColor;
+}
+
+.s0 { color: #f5c84c; }
+.s1 { color: #ff8f7d; }
+.s2 { color: #78e0c1; }
+.s3 { color: #b79cff; }
+.s4 { color: #6cc4ff; }
+.s5 { color: #ff8fd0; }
+
+/* Tablero: la clave arriba, los intentos y el intento en curso. --length lo define el JS. */
+.code-board {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 14px;
+  padding: 10px 8px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(0, 0, 0, .14);
+}
+
+.code-row {
+  display: grid;
+  grid-template-columns: 22px minmax(0, calc(var(--length) * 64px)) 26px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.code-row[hidden] {
+  display: none;
+}
+
+.attempts {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row-number {
+  color: var(--muted);
+  font-size: .8rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.slots {
+  display: grid;
+  grid-template-columns: repeat(var(--length), 1fr);
+  gap: 6px;
+}
+
+.slot {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--muted);
+  background: #2e294b;
+  font-weight: 800;
+}
+
+.slot .symbol {
+  width: 22px;
+  height: 22px;
+}
+
+/* Clave: oculta con signos de pregunta hasta que termina la partida. */
+.secret {
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.secret .slot {
+  border-style: dashed;
+  background: transparent;
+}
+
+.secret.revealed .slot {
+  border-style: solid;
+  background: #2e294b;
+}
+
+.secret.won .slot,
+.secret.won .lock {
+  border-color: var(--mint);
+  color: var(--mint);
+}
+
+.lock {
+  display: block;
+  width: 18px;
+  height: 18px;
+  margin: 0 auto;
+  fill: currentColor;
+}
+
+/* Pistas: punto lleno = en su lugar, punto hueco = en otro lugar. */
+.pegs {
+  display: grid;
+  grid-template-columns: repeat(2, 10px);
+  gap: 4px;
+}
+
+.peg {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.peg.exact {
+  background: var(--mint);
+}
+
+.peg.near {
+  border: 2px solid var(--ink);
+}
+
+.peg.none {
+  background: rgba(247, 244, 255, .1);
+  transform: scale(.6);
+}
+
+.rules .peg {
+  margin: 0 1px;
+  vertical-align: -1px;
+}
+
+/* Intento en curso: casillas grandes y tocables. */
+.guess {
+  margin-top: 4px;
+}
+
+.guess .slot {
+  height: auto;
+  aspect-ratio: 1;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  transition: border-color .15s, box-shadow .15s;
+}
+
+.guess .slot .symbol {
+  width: 58%;
+  height: 58%;
+}
+
+.guess .slot[aria-pressed="true"] {
+  border-color: var(--sun);
+  box-shadow: inset 0 0 0 1px var(--sun);
+}
+
+.guess .slot:focus-visible,
+.key:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 2px;
+}
+
+/* Teclado de figuras. --symbols lo define el JS. */
+.controls {
+  width: min(100%, calc(var(--symbols) * 64px));
+  margin: 12px auto 0;
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(var(--symbols), 1fr);
+  gap: 4px;
+}
+
+.key {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  min-width: 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel-2);
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  transition: opacity .15s, transform .1s;
+}
+
+.key .symbol {
+  width: 56%;
+  height: 56%;
+}
+
+.key:active {
+  transform: scale(.94);
+}
+
+/* Sin repetidas: las figuras ya puestas se atenúan (tocarlas las mueve de casilla). */
+.key.used {
+  opacity: .4;
+}
+
+.keypad-actions {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+/* La ayuda de teclado sobra en pantallas táctiles. */
+@media (pointer: coarse) {
+  .keyboard-tip {
+    display: none;
+  }
+}
+
+@media (min-width: 600px) {
+  .code-board {
+    padding: 12px;
+  }
+
+  .slot {
+    height: 40px;
+  }
+}
