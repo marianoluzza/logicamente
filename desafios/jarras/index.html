@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1b1730" />
+  <meta name="description" content="Medí una cantidad exacta de agua llenando, vaciando y pasando agua entre jarras de distinta capacidad." />
+  <title>Las jarras de agua — Lógicamente</title>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../../assets/base.css" />
+  <link rel="stylesheet" href="../../assets/game.css" />
+  <link rel="stylesheet" href="jarras.css" />
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <a class="brand" href="../../" aria-label="Volver a Lógicamente"><span class="brand-mark">L</span>Lógicamente</a>
+      <span class="progress">Desafío 04</span>
+    </header>
+
+    <section class="game" aria-labelledby="game-title">
+      <a class="back" href="../../">← Volver a desafíos</a>
+
+      <div class="game-top">
+        <div>
+          <div class="eyebrow">Desafío 04</div>
+          <h1 id="game-title">Las jarras de agua</h1>
+          <p class="rules" id="rules"></p>
+        </div>
+        <div class="counter" id="count" aria-live="polite"></div>
+      </div>
+
+      <div class="levels" role="group" aria-label="Nivel">
+        <button class="level" type="button" data-level="0">3 y 5</button>
+        <button class="level" type="button" data-level="1">8, 5 y 3</button>
+        <button class="level" type="button" data-level="2">4 y 9</button>
+      </div>
+
+      <div class="scene" id="jugs"></div>
+
+      <p class="feedback" id="feedback" aria-live="polite"></p>
+
+      <div class="actions">
+        <button class="reset" type="button" id="undo">Deshacer</button>
+        <button class="reset" type="button" id="reset">Reiniciar</button>
+        <button class="reset primary" type="button" id="next" hidden>Siguiente nivel →</button>
+        <span class="tip" id="tip"></span>
+      </div>
+    </section>
+  </main>
+  <script src="jarras.js"></script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+/* Estilos exclusivos de Las jarras de agua. */
+
+.scene {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 18px 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: linear-gradient(transparent 55%, rgba(0, 0, 0, .14));
+}
+
+.jug-column {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  max-width: 140px;
+  min-width: 0;
+}
+
+/* Jarra: el botón entero es el objetivo táctil */
+
+.jug {
+  position: relative;
+  width: 100%;
+  padding: 10px 4px 4px;
+  border: 0;
+  border-radius: 14px;
+  background: none;
+  cursor: pointer;
+  transition: transform .2s, background .2s;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.jug svg {
+  display: block;
+  width: 100%;
+  max-width: 96px;
+  height: auto;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.jug:focus-visible {
+  outline: 3px solid var(--sun);
+  outline-offset: 2px;
+}
+
+.jug[aria-pressed="true"] {
+  background: rgba(245, 200, 76, .08);
+  transform: translateY(-8px);
+}
+
+.jug .glass {
+  fill: rgba(247, 244, 255, .06);
+}
+
+.jug .water {
+  fill: #4b8ef5;
+  transform-box: fill-box;
+  transform-origin: bottom;
+  transition: transform .4s cubic-bezier(.4, 0, .2, 1);
+}
+
+.jug .shine {
+  fill: #fff;
+  opacity: .16;
+}
+
+.jug .tick {
+  stroke: var(--muted);
+  stroke-width: 2;
+  opacity: .6;
+}
+
+.jug .handle {
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 8;
+  stroke-linecap: round;
+  opacity: .55;
+}
+
+.jug .outline {
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 4;
+  transition: stroke .2s;
+}
+
+.jug[aria-pressed="true"] .outline,
+.jug[aria-pressed="true"] .handle {
+  stroke: var(--sun);
+  opacity: 1;
+}
+
+.goal .jug .outline {
+  stroke: var(--mint);
+}
+
+.goal .jug svg {
+  filter: drop-shadow(0 0 10px rgba(120, 224, 193, .55));
+}
+
+.scene.done .jug {
+  cursor: default;
+}
+
+/* Mientras hay una jarra elegida, las que pueden recibir agua lo indican. */
+.pour-hint {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  display: none;
+  width: 26px;
+  height: 26px;
+  margin-left: -13px;
+  border-radius: 50%;
+  background: var(--sun);
+}
+
+.pour-hint::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  background: #241f3c;
+  -webkit-mask: url(iconos/transferir.svg) center / contain no-repeat;
+  mask: url(iconos/transferir.svg) center / contain no-repeat;
+}
+
+.target .pour-hint {
+  display: block;
+}
+
+.amount {
+  margin-top: 6px;
+  color: var(--ink);
+  font-size: .85rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* Canilla y desagüe */
+
+.taps {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.tap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--ink);
+  background: var(--panel-2);
+  cursor: pointer;
+  font-size: .85rem;
+  font-weight: 700;
+  touch-action: manipulation;
+}
+
+.tap:hover,
+.tap:focus-visible {
+  border-color: var(--sun);
+  outline: none;
+}
+
+.tap:disabled {
+  opacity: .5;
+  cursor: default;
+}
+
+.tap:disabled:hover {
+  border-color: var(--line);
+}
+
+.tap .icon {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  background: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+}
+
+.tap.fill .icon {
+  --icon: url(iconos/gota.svg);
+  background: #9cc2ff;
+}
+
+.tap.empty .icon {
+  --icon: url(iconos/descartar.svg);
+}
+
+@media (min-width: 600px) {
+  .scene {
+    gap: 24px;
+    padding: 26px 20px 16px;
+  }
+
+  .jug svg {
+    max-width: 120px;
+  }
+}
